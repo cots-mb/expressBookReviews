@@ -7,14 +7,15 @@ const public_users = express.Router();
 
 public_users.post("/register", (req,res) => {
   //Write your code here
-   let username = req.body.username;
+  let username = req.body.username;
     let password = req.body.password;
     if (username && password){
-        if(username.isValid){
+        if(isValid){
             users.push({
                 "username":username,
                 "password":password
         });
+            return res.status(300).json({message: "user registered"});
         }else{
             return res.status(300).json({message: "user exists already"});
         }
