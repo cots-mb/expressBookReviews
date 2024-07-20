@@ -90,5 +90,40 @@ public_users.get('/review/:isbn',function (req, res) {
     }
  // return res.status(300).json({message: "Yet to be implemented"});
 });
+//Start Promise Section
+public_users.get('/promise',function (req, res) {
+    //Write your code here
+    let loadBooks = new Promise(function(myResolve, myReject) {
+        let loadedBooks;
+        
+        setTimeout(function() { 
+            loadedBooks = JSON.parse(JSON.stringify(loadedBooksbooks));
+            myResolve(loadedBooks); 
+        }, 3000);
+    
+        if (JSON.stringify(loadedBooks) === "{}") {
+            myReject("books not loaded");
+          } else {
+            
+            myResolve(loadedBooks);
+          }
+         
+         
+      });
+      
+    loadBooks.then(
+        (value)=>{return res.status(200).send(JSON.stringify(books));},
+        (error)=>{return res.status(300).json({message: "Books not loaded"});}
+      );
+    ;
+  });
+
+
+//Get all books
+//Get book by isbn
+//Get books by author
+//Get book by title
+
+//End Promise Section
 
 module.exports.general = public_users;
