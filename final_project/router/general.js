@@ -97,12 +97,12 @@ public_users.get('/promise',function (req, res) {
         let loadedBooks;
         
         setTimeout(function() { 
-            loadedBooks = JSON.parse(JSON.stringify(loadedBooksbooks));
+            loadedBooks = JSON.parse(JSON.stringify(books));
             myResolve(loadedBooks); 
         }, 3000);
     
         if (JSON.stringify(loadedBooks) === "{}") {
-            myReject("books not loaded");
+            myReject();
           } else {
             
             myResolve(loadedBooks);
@@ -113,7 +113,7 @@ public_users.get('/promise',function (req, res) {
       
     loadBooks.then(
         (value)=>{return res.status(200).send(JSON.stringify(books));},
-        (error)=>{return res.status(300).json({message: "Books not loaded"});}
+        ()=>{return res.status(300).json({message: "Books not loaded"});}
       );
     ;
   });
