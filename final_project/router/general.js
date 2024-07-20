@@ -91,6 +91,7 @@ public_users.get('/review/:isbn',function (req, res) {
  // return res.status(300).json({message: "Yet to be implemented"});
 });
 //Start Promise Section
+//Get all books
 public_users.get('/promise',function (req, res) {
     //Write your code here
     let loadBooks = new Promise(function(myResolve, myReject) {
@@ -117,12 +118,80 @@ public_users.get('/promise',function (req, res) {
       );
     ;
   });
-
-
-//Get all books
 //Get book by isbn
+public_users.get('/promise/:isbn',function (req, res) {
+    //Write your code here
+    let loadBooks = new Promise(function(myResolve, myReject) {
+       let cbook = JSON.stringify(books[req.params.isbn]);
+       
+        if (cbook) {
+            myResolve(cbook);
+          } else {
+            myReject("Load error");
+            
+          }
+         
+      })
+      
+    loadBooks.then(
+        (value)=> {return res.status(200).send(JSON.stringify(value));}, 
+        (error)=>{return res.status(300).send(JSON.stringify(error));}
+      );
+    ;
+  });
 //Get books by author
+public_users.get('/promise/author/:author',function (req, res) {
+    //Write your code here
+    let loadBooks = new Promise(function(myResolve, myReject) {
+    let author = req.params.author;
+    let result =[];
+
+    for(let i=1;i<11;i++){
+            if(books[i].author===author){ 
+             result.push(books[i]);
+            } 
+        }
+
+    if(result.length>0){
+        myResolve(result);
+    }else{
+        myReject("Load error");
+    }
+    })
+      
+    loadBooks.then(
+        (value)=> {return res.status(200).send(JSON.stringify(value));}, 
+        (error)=>{return res.status(300).send(JSON.stringify(error));}
+      );
+    ;
+  });
 //Get book by title
+public_users.get('/promise/title/:title',function (req, res) {
+    //Write your code here
+    let loadBooks = new Promise(function(myResolve, myReject) {
+    let title = req.params.title;
+    let result =[];
+
+    for(let i=1;i<11;i++){
+            if(books[i].title===title){ 
+             result.push(books[i]);
+            } 
+        }
+
+    if(result.length>0){
+        myResolve(result);
+    }else{
+        myReject("Load error");
+    }
+    })
+      
+    loadBooks.then(
+        (value)=> {return res.status(200).send(JSON.stringify(value));}, 
+        (error)=>{return res.status(300).send(JSON.stringify(error));}
+      );
+    ;
+  });
+//End Promise Section
 
 //End Promise Section
 
